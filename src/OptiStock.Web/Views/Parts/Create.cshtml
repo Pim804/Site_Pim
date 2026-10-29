@@ -1,0 +1,30 @@
+﻿@model OptiStock.Web.Controllers.PartsController.PartForm
+@{ ViewData["Title"] = "Cadastrar Peça"; var categories = ViewBag.Categories as List<OptiStock.Web.Controllers.PartsController.CategoryOption> ?? []; var suppliers = ViewBag.Suppliers as List<OptiStock.Web.Controllers.PartsController.SupplierOption> ?? []; }
+<main class="container py-4 form-page part-create-page">
+    <div class="part-create-heading">
+        <div><p class="eyebrow">ESTOQUE</p><h1>Cadastrar Peça</h1><p class="page-subtitle">Adicione uma nova peça ao controle de estoque com nome, preço, quantidade, categoria e endereço.</p></div>
+        <span class="part-create-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22.7 19.3 13.3 9.9a6 6 0 0 0-7.8-7.8L9 5.6 5.6 9 2.1 5.5a6 6 0 0 0 7.8 7.8l9.4 9.4a1.3 1.3 0 0 0 1.9 0l1.5-1.5a1.3 1.3 0 0 0 0-1.9Z"/></svg></span>
+    </div>
+    <form asp-action="Create" method="post" class="card part-create-card" data-loading-form data-required-markers>
+        @Html.AntiForgeryToken()
+        <div class="card-body">
+            <div class="part-form-intro"><h2>Dados da peça</h2><p>A data de cadastro será preenchida automaticamente pelo sistema.</p></div>
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+            <p class="required-legend">* Campos obrigatórios</p>
+            <div class="part-primary-grid">
+                <div><label asp-for="Name" class="form-label">Nome da peça</label><input asp-for="Name" class="form-control" placeholder="Ex: Filtro de óleo" required /></div>
+                <div><label asp-for="UnitPrice" class="form-label">Preço</label><div class="input-group"><span class="input-group-text">$</span><input asp-for="UnitPrice" type="number" min="0" step="0.01" class="form-control" placeholder="Ex: 49,90" required /></div></div>
+                <div><label asp-for="InitialQuantity" class="form-label">Quantidade</label><input asp-for="InitialQuantity" type="number" min="0" class="form-control" placeholder="Ex: 25" required /></div>
+                <div><label asp-for="CategoryId" class="form-label">Categoria</label><select asp-for="CategoryId" class="form-select" required><option value="">Selecione uma categoria</option>@foreach (var c in categories) { <option value="@c.Id">@c.Name</option> }</select></div>
+                <div class="part-location-field"><label asp-for="WarehouseLocation" class="form-label">Endereço no estoque</label><input asp-for="WarehouseLocation" class="form-control" placeholder="Ex: Corredor A · Prateleira 3" /></div>
+            </div>
+            <details class="part-extra-fields"><summary>Dados adicionais</summary><div class="part-extra-grid">
+                <div><label asp-for="Code" class="form-label">Código</label><input asp-for="Code" class="form-control" required /></div>
+                <div><label asp-for="MinimumStock" class="form-label">Estoque mínimo</label><input asp-for="MinimumStock" type="number" min="0" class="form-control" required /></div>
+                <div><label asp-for="SupplierId" class="form-label">Fornecedor (opcional)</label><select asp-for="SupplierId" class="form-select"><option value="">Sem fornecedor</option>@foreach (var s in suppliers) { <option value="@s.Id">@s.Name</option> }</select></div>
+                <div class="part-location-field"><label asp-for="Description" class="form-label">Descrição</label><textarea asp-for="Description" class="form-control" rows="2"></textarea></div>
+            </div></details>
+            <div class="part-create-actions"><a asp-action="Index" class="btn btn-outline-secondary">‹ Voltar</a><button class="btn btn-primary" type="submit">✓ Salvar peça</button></div>
+        </div>
+    </form>
+</main>

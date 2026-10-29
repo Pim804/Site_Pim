@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/OptiStock.Application/OptiStock.Application.csproj" />
+    <Project Path="src/OptiStock.Domain/OptiStock.Domain.csproj" />
+    <Project Path="src/OptiStock.Infrastructure/OptiStock.Infrastructure.csproj" />
+    <Project Path="src/OptiStock.Web/OptiStock.Web.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/OptiStock.Tests/OptiStock.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,33 @@
+@model OptiStock.Web.Controllers.HomeController.DashboardPage
+@{
+    ViewData["Title"] = "Gerência";
+    var summary = Model.Summary;
+    var totals = summary?.Totals;
+    var entries = summary?.Movements?.Entries ?? [];
+    var exits = summary?.Movements?.Exits ?? [];
+    var dates = entries.Select(x => x.Date.Date).Union(exits.Select(x => x.Date.Date)).OrderBy(x => x).ToList();
+    var maxQuantity = entries.Select(x => x.Quantity).Concat(exits.Select(x => x.Quantity)).DefaultIfEmpty(1).Max();
+    if (maxQuantity < 1) maxQuantity = 1;
+}
+<main class="container management-page" id="main-content">
+    <header class="page-heading-row"><div><p class="eyebrow">ACESSO GERENCIAL</p><h1>Gerência</h1><p class="page-subtitle">Acompanhe o estoque, as movimentações e o valor total cadastrado.</p></div><div class="manager-badge"><span class="manager-avatar" aria-hidden="true">@(User.Identity?.Name is { Length: > 0 } name ? name[..1].ToUpperInvariant() : "A")</span><span><strong>@User.Identity?.Name</strong><small>@(User.IsInRole("Administrador") ? "Acesso administrativo" : "Acesso de funcionário")</small></span></div></header>
+    @if (ViewData["ApiUnavailable"] is string unavailable) { <div class="alert alert-warning" role="status">@unavailable</div> }
+    @if (ViewData["DateFilterError"] is string dateError) { <div class="alert alert-warning" role="status">@dateError</div> }
+    <section class="metric-grid" aria-label="Resumo do estoque">
+        <article class="metric-card"><span class="metric-icon" aria-hidden="true">▤</span><span class="metric-label">PEÇAS</span><strong>@(totals?.Parts ?? 0)</strong></article>
+        <article class="metric-card"><span class="metric-icon" aria-hidden="true">▦</span><span class="metric-label">UNIDADES</span><strong>@(totals?.Units ?? 0)</strong></article>
+        <article class="metric-card"><span class="metric-icon metric-icon-warning" aria-hidden="true">△</span><span class="metric-label">CRÍTICOS</span><strong>@(totals?.Low ?? 0)</strong></article>
+        <article class="metric-card"><span class="metric-icon" aria-hidden="true">R$</span><span class="metric-label">VALOR TOTAL</span><strong>@((totals?.InventoryValue ?? 0).ToString("C"))</strong></article>
+    </section>
+    <section class="data-panel management-stock" aria-labelledby="manager-stock-title">
+        <header class="panel-heading"><div><h2 id="manager-stock-title">Controle de peças</h2><p>Estoque atualizado diretamente pelo sistema.</p></div><form method="get" asp-controller="Parts" asp-action="Index" class="panel-search"><label class="visually-hidden" for="manager-search">Buscar peça</label><span aria-hidden="true">⌕</span><input id="manager-search" name="busca" class="form-control" placeholder="Buscar por peça, código, setor ou endereço" /></form></header>
+        <div class="table-responsive manager-table"><table class="table table-striped align-middle"><thead><tr><th>Peça</th><th>Setor</th><th>Endereço</th><th>Código</th><th>Quantidade</th><th>Preço</th><th>Situação</th>@if (User.IsInRole("Administrador")) { <th>Ações</th> }</tr></thead><tbody>
+        @if (Model.Parts.Count == 0) { <tr><td colspan="8" class="empty-row">Nenhuma peça cadastrada ainda.</td></tr> }
+        @foreach (var item in Model.Parts) { var critical = item.StockQuantity <= item.MinimumStock; <tr><th scope="row"><span class="part-name">@item.Name</span><small class="part-category">@item.Category</small></th><td>@(item.WarehouseLocation?.Split('-').FirstOrDefault()?.Trim() ?? "—")</td><td>@(item.WarehouseLocation ?? "—")</td><td><code class="code-chip">@item.Code</code></td><td>@item.StockQuantity</td><td>@item.UnitPrice.ToString("C")</td><td><span class="status-pill @(critical ? "status-critical" : "status-ok")">@(critical ? "Crítico" : "Regular")</span></td>@if (User.IsInRole("Administrador")) { <td class="action-cell"><a asp-controller="Parts" asp-action="Edit" asp-route-id="@item.Id" class="icon-action" aria-label="Editar @item.Name" title="Editar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 16-.8 4.8L8 20l11-11-4-4zM13.5 6.5l4 4"/></svg></a><form asp-controller="Parts" asp-action="Deactivate" asp-route-id="@item.Id" method="post" data-confirm-submit="Desativar esta peça? O histórico será mantido."><button class="icon-action danger-action" type="submit" aria-label="Desativar @item.Name" title="Desativar"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 7h14M10 7V4h4v3m3 0-.8 13H7.8L7 7m3 3v6m4-6v6"/></svg></button></form></td> }</tr> }
+        </tbody></table></div>
+        <footer class="panel-footer"><span>@Model.Parts.Count peça(s) exibida(s)</span><a asp-controller="Parts" asp-action="Index">Ver estoque completo <span aria-hidden="true">→</span></a></footer>
+    </section>
+    <section class="data-panel movement-summary" aria-labelledby="manager-movement-title"><header class="panel-heading"><div><h2 id="manager-movement-title">Entradas e saídas</h2><p>Movimentações por dia no período selecionado.</p></div><form method="get" asp-controller="Home" asp-action="Dashboard" class="period-filter"><label for="inicio">De</label><input id="inicio" name="inicio" type="date" value="@ViewBag.Start" class="form-control" /><label for="fim">Até</label><input id="fim" name="fim" type="date" value="@ViewBag.End" class="form-control" /><button class="btn btn-primary" type="submit">Filtrar</button><a asp-action="Dashboard" class="btn btn-outline-secondary" aria-label="Limpar filtro de período">Limpar</a></form></header>
+        <div class="movement-chart">@if (dates.Count == 0) { <p class="empty-row">Sem movimentações neste período.</p> } @foreach (var date in dates) { var entry = entries.FirstOrDefault(x => x.Date.Date == date)?.Quantity ?? 0; var exit = exits.FirstOrDefault(x => x.Date.Date == date)?.Quantity ?? 0;<div class="chart-day"><strong>@date.ToString("d")</strong><span>Entradas @entry</span><div class="chart-track"><i class="entry-bar" style="width:@((double)entry / maxQuantity * 100)%"></i></div><span>Saídas @exit</span><div class="chart-track"><i class="exit-bar" style="width:@((double)exit / maxQuantity * 100)%"></i></div></div> }</div>
+    </section>
+</main>

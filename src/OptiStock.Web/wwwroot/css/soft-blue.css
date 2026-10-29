@@ -1,0 +1,50 @@
+﻿:root{--ink:#18324c;--muted:#687f92;--canvas:#f3f9fd;--surface:#fff;--line:#dceaf4;--brand:#4b9ee8;--brand-dark:#2879c4;--brand-pale:#e7f4fc;--danger:#c75263;--success:#3c8768;--shadow:0 12px 30px rgb(41 90 128 / 9%);--focus:0 0 0 3px rgb(91 177 235 / 23%);--neon:#54b7eb;--bs-body-color:var(--ink);--bs-body-bg:var(--canvas);--bs-border-color:var(--line)}
+html{color-scheme:light} body.app-body{color:var(--ink);background:radial-gradient(ellipse at 88% 4%,rgb(106 190 238 / 22%),transparent 38%),radial-gradient(ellipse at 8% 92%,rgb(166 220 246 / 22%),transparent 35%),linear-gradient(135deg,#f8fbfe,#eef7fc)}
+body.app-body a{color:var(--brand-dark)} body.app-body a:hover{color:#145f9f}
+.site-header{border-bottom-color:#deebf4;background:rgb(255 255 255 / 94%);box-shadow:0 6px 22px rgb(43 92 128 / 7%)}
+.brand-lockup,.brand-lockup:hover{color:var(--ink)} .brand-mark,.module-icon,.manager-avatar,.part-create-icon{color:#fff;background:linear-gradient(145deg,#63baf0,#438ce0);box-shadow:0 5px 14px rgb(66 145 211 / 18%)}
+.header-page-title,.eyebrow{color:#3187cd}.header-icon-button{border-color:#dceaf4;color:#398bd0;background:#fff}
+.header-icon-button:hover{border-color:#83c3eb;color:#1f76b9;background:#edf8fe}
+.header-add-button,.header-add-button:hover,.btn-primary{border-color:#4a9be2;color:#fff;background:linear-gradient(115deg,#4b9fe8,#66c5ec);box-shadow:0 5px 15px rgb(72 155 220 / 19%)}
+.btn-primary:hover,.btn-primary:focus{border-color:#2879c4;color:#fff;background:linear-gradient(115deg,#2879c4,#3897d3)}
+.btn-outline-primary{border-color:#91c5e6;color:#2879c4}.btn-outline-primary:hover{border-color:#4b9fe8;color:#fff;background:#4b9fe8}
+body.app-body a.btn-primary,body.app-body a.btn-outline-primary{color:#fff}
+.page-content h1,.page-content h2,.page-content h3{color:#18324c}
+.page-content .text-secondary,.page-subtitle,.module-admin-links,.metric-label,.manager-badge small,.panel-heading p,.panel-search,.part-category{color:var(--muted)!important}
+.module-card,.metric-card,.manager-badge,.data-panel,.card,.toast-message{border-color:#dceaf4;color:var(--ink);background:rgb(255 255 255 / 94%);box-shadow:var(--shadow)}
+.module-card:hover{transform:translateY(-1px);border-color:#99d3ef;color:var(--ink);box-shadow:0 15px 30px rgb(45 113 164 / 12%)}
+.module-card-label{border-color:#dcebf6;color:#205b8e;background:#fff}
+.module-icon{background:linear-gradient(145deg,#5cb3ed,#4288df)}
+.module-icon svg,.header-icon-button svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.metric-icon{color:#3187cd;background:#e7f4fc}.metric-icon-warning{color:#ad7b2f;background:#fff4df}
+.table{--bs-table-color:var(--ink);--bs-table-bg:#fff;--bs-table-border-color:#e0ebf3;--bs-table-striped-color:var(--ink);--bs-table-striped-bg:#f5fafe;--bs-table-hover-color:var(--ink);--bs-table-hover-bg:#eaf6fc;color:var(--ink)}
+.table thead th{color:#fff;background:linear-gradient(100deg,#4397df,#62bce9)}
+.table-striped>tbody>tr:nth-of-type(odd)>*{--bs-table-bg-type:#f5fafe;--bs-table-color-type:var(--ink)}
+.table tbody tr:hover>*{--bs-table-bg-state:#eaf6fc;--bs-table-color-state:var(--ink)}
+.code-chip{border-color:#dceaf4;color:#436781;background:#f1f8fc}
+.status-ok{color:#28714d;background:#e6f4eb}.status-critical{color:#a34150;background:#fdecef}
+.icon-action{border-color:#d7e9f4;color:#3187cd;background:#f5fafe}.icon-action:hover{color:#fff;background:#428fda}
+.danger-action{border-color:#f0d4d8;color:#a34150;background:#fff5f6}.panel-footer{border-top-color:var(--line);color:var(--muted)}
+.chart-track,.progress{background:#e5eff5}.entry-bar{background:#54afe6}.exit-bar{background:#8ab7d1}
+.form-label,.part-create-card .form-label{color:#36566e}
+.form-control,.form-select,.input-group-text{border-color:#d6e6f0;color:var(--ink);background:#fff;color-scheme:light}
+.form-control::placeholder{color:#8095a6;opacity:1}.form-control:focus,.form-select:focus{border-color:#63b3e5;color:var(--ink);background:#fff;box-shadow:var(--focus)}
+.form-select option{color:var(--ink);background:#fff}.part-create-card,.part-create-card .card-body{color:var(--ink)}.part-form-intro,.part-extra-fields{border-color:var(--line)}
+.alert-success{border-color:#c7e4d1;color:#28714d;background:#edf8f0}.alert-danger{border-color:#efd0d5;color:#963b4c;background:#fff1f3}.alert-warning{border-color:#eeddbb;color:#805c22;background:#fff8e9}
+:focus-visible{outline:2px solid #398fd0;outline-offset:2px}
+body.login-body{color:#18324c;background:radial-gradient(ellipse at 83% 13%,rgb(129 204 239 / 36%),transparent 40%),linear-gradient(135deg,#f5fafe,#eaf5fc)}
+body.login-body::before,body.login-body::after{border-color:rgb(64 151 211 / 13%);background:linear-gradient(135deg,rgb(76 164 222 / 10%),rgb(154 218 244 / 19%))}
+.login-orb{background:rgb(87 179 230 / 25%);box-shadow:0 0 42px rgb(87 179 230 / 19%)}.login-orb-bottom{background:rgb(74 157 222 / 23%)}
+.login-brand{color:#183d5a}.login-brand-mark{border-color:rgb(255 255 255 / 75%);color:#fff;background:linear-gradient(145deg,#49a1e5,#376ed0);box-shadow:0 7px 22px rgb(49 121 188 / 20%)}
+.login-brand-name{color:#204563;text-shadow:none}.login-input-wrap{border-color:#d3e7f4;background:rgb(255 255 255 / 88%);box-shadow:0 3px 10px rgb(43 92 128 / 7%)}
+.login-input-wrap:focus-within{border-color:#53a9df;background:#fff;box-shadow:var(--focus)}.login-input-wrap>span{color:#398bc6}
+.login-input-wrap .form-control{color:#18324c}.login-input-wrap .form-control::placeholder{color:#7890a3}
+.login-submit{color:#fff;background:linear-gradient(115deg,#438fe0,#54b8e8)}.login-submit:hover,.login-submit:focus{color:#fff;background:linear-gradient(115deg,#2879c4,#3897d3);box-shadow:0 5px 17px rgb(65 144 207 / 24%)}
+.login-card .alert-danger{border-color:#efd0d5;color:#963b4c;background:#fff1f3}
+/* Contrast and component-specific refinements */
+body.app-body a.btn-primary{color:#fff}
+body.app-body a.btn-outline-primary{color:#2879c4}
+body.app-body a.btn-outline-primary:hover{color:#fff}
+.table>:not(caption)>*>*{border-bottom-color:#e0ebf3}
+.part-create-card .form-control,.part-create-card .form-select,.part-create-card .input-group-text{border-color:#d6e6f0;color:var(--ink);background-color:#fff;color-scheme:light}
+.form-control:disabled,.form-select:disabled{color:#71879a;background-color:#f1f7fa}

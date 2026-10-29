@@ -1,0 +1,57 @@
+@{
+    var pageTitle = ViewData["Title"]?.ToString() ?? "OptiStock";
+    var bodyClass = ViewData["BodyClass"]?.ToString() ?? "";
+}
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f9fc" />
+    <title>@pageTitle Â· OptiStock</title>
+    <link rel="icon" type="image/svg+xml" href="~/favicon.svg" asp-append-version="true" />
+    <link rel="alternate icon" href="~/favicon.ico" />
+    <link rel="apple-touch-icon" href="~/apple-touch-icon.svg" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/OptiStock.Web.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/neon.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site-ui.css" asp-append-version="true" />
+</head>
+<body class="app-body @bodyClass">
+    <a class="skip-link" href="#main-content">Pular para o conteÃºdo</a>
+    <header class="site-header">
+        <div class="site-header-inner">
+            <a class="brand-lockup" asp-controller="Home" asp-action="Index" aria-label="OptiStock, pÃ¡gina inicial">
+                <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M22.7 19.3 13.3 9.9a6 6 0 0 0-7.8-7.8L9 5.6 5.6 9 2.1 5.5a6 6 0 0 0 7.8 7.8l9.4 9.4a1.3 1.3 0 0 0 1.9 0l1.5-1.5a1.3 1.3 0 0 0 0-1.9Z"/></svg></span>
+                <span class="brand-name">OptiStock</span>
+            </a>
+            <h1 class="header-page-title">@pageTitle</h1>
+            <nav class="header-actions" aria-label="AÃ§Ãµes rÃ¡pidas">
+                <a class="header-icon-button header-add-button" asp-controller="Movements" asp-action="Create" aria-label="Nova movimentaÃ§Ã£o" title="Nova movimentaÃ§Ã£o"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg></a>
+                <a class="header-icon-button" asp-controller="Home" asp-action="Index" aria-label="Home" title="Home"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m3 10 9-7 9 7M5.5 9v11h13V9M9.5 20v-6h5v6"/></svg></a>
+                <form asp-controller="Account" asp-action="Logout" method="post"><button class="header-icon-button" type="submit" aria-label="Sair da conta" title="Sair"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M10 4H5v16h5M14 8l4 4-4 4M8 12h10"/></svg></button></form>
+            </nav>
+        </div>
+    </header>
+    @if (TempData["ToastSuccess"] is string successMessage) { <div class="toast-message toast-success" role="status" aria-live="polite"><span aria-hidden="true">âœ“</span>@successMessage<button type="button" class="toast-dismiss" aria-label="Fechar aviso">Ã—</button></div> }
+    @if (TempData["ToastError"] is string errorMessage) { <div class="toast-message toast-error" role="alert"><span aria-hidden="true">!</span>@errorMessage<button type="button" class="toast-dismiss" aria-label="Fechar aviso">Ã—</button></div> }
+    <div class="page-content" id="main-content" tabindex="-1">@RenderBody()</div>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+
+
+
+
+
+
+

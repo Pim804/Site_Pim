@@ -1,0 +1,70 @@
+@model OptiStock.Web.Controllers.AccountController.LoginForm
+@{ ViewData["Title"] = "Entrar"; Layout = null; }
+<!doctype html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f8f9fc" />
+    <link rel="icon" type="image/svg+xml" href="~/favicon.svg" asp-append-version="true" />
+    <title>Entrar Â· OptiStock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Arvo:wght@400;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/neon.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/site-ui.css" asp-append-version="true" />
+</head>
+<body class="login-body editorial-login">
+    <a class="skip-link" href="#login-title">Pular para o formulário de acesso</a>
+    <header class="auth-header">
+        <a class="auth-brand" href="/" aria-label="OptiStock, página inicial">
+            <span class="auth-brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M14.4 6.2 18 2.8a6.4 6.4 0 0 0-8.3 8.1l-6.4 6.4a2 2 0 0 0 2.8 2.8l6.4-6.4a6.4 6.4 0 0 0 8.1-8.3l-3.4 3.6a2 2 0 0 1-2.8-2.8Z"/></svg></span>
+            <span>OptiStock</span>
+        </a>
+        <span class="auth-header-note">Controle de estoque, com clareza.</span>
+    </header>
+    <main class="editorial-login-stage">
+        <div class="editorial-login-grid">
+            <section class="editorial-login-copy" aria-labelledby="login-title">
+                <p class="editorial-kicker"><span></span> AREA DE ACESSO</p>
+                <h1 id="login-title">Seu estoque,<br /><span>em perspectiva.</span></h1>
+                <p class="editorial-login-description">Entre para encontrar peças, conferir saldos e acompanhar o que mudou — tudo no mesmo lugar.</p>
+                <section class="card editorial-login-card" aria-label="Formulário de acesso">
+                    <p class="editorial-form-label">Acesse sua conta</p>
+                    <form asp-action="Login" method="post" data-loading-form>
+                        @Html.AntiForgeryToken()
+                        @if (!ViewData.ModelState.IsValid) { <div asp-validation-summary="All" class="alert alert-danger" role="alert"></div> }
+                        <div class="login-input-wrap">
+                            <span aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6" /></svg></span>
+                            <label class="visually-hidden" asp-for="Email">Digite seu e-mail</label>
+                            <input asp-for="Email" type="email" class="form-control" placeholder="E-mail" autocomplete="username" inputmode="email" required autofocus />
+                        </div>
+                        <div class="login-input-wrap">
+                            <span aria-hidden="true"><svg viewBox="0 0 24 24"><circle cx="8" cy="15" r="4" /><path d="m11 12 8-8 2 2-2 2 2 2-3 3-2-2-2 2" /></svg></span>
+                            <label class="visually-hidden" asp-for="Password">Digite sua senha</label>
+                            <input asp-for="Password" type="password" class="form-control" placeholder="Senha" autocomplete="current-password" required />
+                        </div>
+                        <button class="btn btn-primary login-submit" type="submit" data-loading-label="Aguarde...">Entrar no OptiStock <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14m-6-6 6 6-6 6" /></svg></button>
+                    </form>
+                    <p class="editorial-login-footnote">Acesso destinado à equipe OptiStock.</p>
+                </section>
+            </section>
+            <aside class="login-product-visual" aria-label="Prévia visual do controle de estoque">
+                <div class="visual-orbit visual-orbit-one"></div><div class="visual-orbit visual-orbit-two"></div>
+                <div class="visual-copy"><span class="visual-overline">ESTOQUE EM ORDEM</span><strong>Menos procura.<br />Mais controle.</strong><span>Peças e movimentações no mesmo fluxo.</span></div>
+                <div class="visual-board" aria-hidden="true">
+                    <div class="visual-board-head"><span class="visual-board-dot"></span><span>Visão do estoque</span><span class="visual-board-menu">...</span></div>
+                    <div class="visual-board-row visual-board-row-feature"><span class="visual-row-icon row-icon-blue"></span><span class="visual-row-lines"><i></i><i></i></span><span class="visual-row-tag"></span></div>
+                    <div class="visual-board-row"><span class="visual-row-icon row-icon-violet"></span><span class="visual-row-lines"><i></i><i></i></span><span class="visual-row-tag"></span></div>
+                    <div class="visual-board-row"><span class="visual-row-icon row-icon-cyan"></span><span class="visual-row-lines"><i></i><i></i></span><span class="visual-row-tag"></span></div>
+                    <div class="visual-board-footer"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div>
+                </div>
+                <div class="visual-note"><span class="visual-note-check" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="m5 12 4 4L19 6" /></svg></span><span><strong>Histórico organizado</strong><small>Cada movimentação registrada</small></span></div>
+            </aside>
+        </div>
+    </main>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js" defer></script>
+</body>
+</html>

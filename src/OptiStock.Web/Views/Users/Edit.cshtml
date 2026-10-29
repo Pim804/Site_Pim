@@ -1,0 +1,6 @@
+@model OptiStock.Web.Controllers.UsersController.EditUserForm
+@{ ViewData["Title"] = "Editar usuário"; var id = ViewBag.Id as Guid?; }
+<main class="container py-4 form-page"><h1 class="h2">Editar usuário</h1><form asp-action="Edit" asp-route-id="@id" method="post" class="card mt-3"><div class="card-body row g-3">@Html.AntiForgeryToken()<div asp-validation-summary="ModelOnly" class="alert alert-danger" role="alert"></div>
+<div class="col-md-6"><label asp-for="DisplayName" class="form-label">Nome</label><input asp-for="DisplayName" class="form-control" required /></div><div class="col-md-6"><label asp-for="Email" class="form-label">E-mail</label><input asp-for="Email" type="email" class="form-control" /></div>
+<div class="col-md-6"><label asp-for="Role" class="form-label">Perfil</label><select asp-for="Role" class="form-select"><option>Funcionário</option><option>Administrador</option></select></div><div class="col-md-6 form-check ms-2 align-self-end"><input asp-for="IsActive" class="form-check-input" /><label asp-for="IsActive" class="form-check-label">Conta ativa</label></div>
+<div class="col-12 d-flex gap-2"><button class="btn btn-primary">Salvar</button><a asp-action="Index" class="btn btn-outline-secondary">Voltar</a></div></div></form></main>

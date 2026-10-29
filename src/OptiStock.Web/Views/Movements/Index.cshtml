@@ -1,0 +1,7 @@
+@model OptiStock.Web.Controllers.MovementsController.MovementPage
+@{ ViewData["Title"] = "Movimentações"; }
+<main class="container py-4"><header class="d-flex flex-wrap justify-content-between align-items-center gap-3 mb-4"><div><h1 class="h2">Movimentações</h1><p class="text-secondary">Histórico de entradas e saídas do estoque.</p></div><a asp-action="Create" class="btn btn-primary">Nova movimentação</a></header>
+@if (ViewData["ApiUnavailable"] is string error) { <div class="alert alert-warning" role="status">@error</div> }
+@if (Model is not null) { <div class="table-responsive"><table class="table table-striped align-middle"><thead><tr><th>Data</th><th>Peça</th><th>Tipo</th><th>Quantidade</th><th>Saldo</th><th>Observações</th><th>Usuário</th></tr></thead><tbody>@if (Model.Items.Count == 0) { <tr><td colspan="7"><div class="empty-state"><span class="empty-state-icon" aria-hidden="true">↔</span><h2>Nenhuma movimentação registrada</h2><p>Quando uma entrada ou saída for feita, ela aparecerá neste histórico.</p><a asp-action="Create" class="btn btn-primary">Registrar movimentação</a></div></td></tr> }
+@foreach (var item in Model.Items) { <tr><td>@item.OccurredAtUtc.ToLocalTime().ToString("g")</td><th scope="row">@item.PartCode · @item.PartName</th><td>@(item.Type == "entry" ? "Entrada" : "Saída")</td><td>@item.Quantity</td><td>@item.PreviousBalance → @item.NewBalance</td><td>@item.Notes</td><td>@item.UserId</td></tr> }
+</tbody></table></div><p class="text-secondary">@Model.Total movimentação(ões).</p> }</main>

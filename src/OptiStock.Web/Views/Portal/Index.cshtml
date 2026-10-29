@@ -1,0 +1,21 @@
+﻿@model List<OptiStock.Web.Controllers.AnnouncementsController.AnnouncementRow>
+@{ ViewData["Title"] = "Departamento Pessoal"; }
+<main class="container portal-page" id="main-content">
+    <header class="page-heading-row"><div><p class="eyebrow">DEPARTAMENTO PESSOAL</p><h1>Portal do Funcionário</h1><p class="page-subtitle">Acompanhe comunicados e informações importantes da equipe.</p></div><span class="today-badge">@ViewBag.Today</span></header>
+    @if (ViewData["Unavailable"] is string error) { <div class="alert alert-warning" role="status">@error</div> }
+    <div class="portal-layout">
+        <section class="data-panel portal-notices" aria-labelledby="portal-notices-title">
+            <header class="panel-heading"><div><h2 id="portal-notices-title">Comunicados</h2><p>Atualizações recentes para os colaboradores.</p></div><span class="count-badge">@Model.Count publicado(s)</span></header>
+            <div class="notice-list">
+                @if (Model.Count == 0) { <div class="empty-state"><span class="empty-state-icon" aria-hidden="true">i</span><h3>Nenhum comunicado por enquanto</h3><p>Os avisos da equipe aparecerão aqui quando forem publicados.</p></div> }
+                @foreach (var item in Model) { <article class="notice-card"><span class="notice-icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 4h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-8l-5 3v-3a2 2 0 0 1-3-2V6a2 2 0 0 1 2-2Z"/><path d="M8 9h8M8 13h5"/></svg></span><div><h3>@item.Title</h3><p class="notice-meta">@item.Author · @((item.PublishedAtUtc ?? item.CreatedAtUtc).ToLocalTime().ToString("g"))</p><p class="notice-content">@item.Content</p></div></article> }
+            </div>
+        </section>
+        <aside class="portal-aside" aria-label="Informações do OptiStock">
+            <article class="data-panel company-panel"><h2>OptiStock</h2><div class="company-illustration" aria-hidden="true"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="13" rx="1.5"/><path d="M8 21h8m-4-4v4"/></svg></div><p>O OptiStock organiza o controle de peças e materiais e mantém o histórico das movimentações do estoque.</p><a asp-controller="Parts" asp-action="Index" class="btn btn-primary">Consultar estoque</a></article>
+            <article class="data-panel portal-count"><h2>RESUMO</h2><div><strong>@Model.Count</strong><span>Comunicados exibidos</span></div></article>
+            <nav class="data-panel portal-links" aria-label="Acessos rápidos"><a asp-controller="Parts" asp-action="Index">Consultar peças <span aria-hidden="true">→</span></a><a asp-controller="Movements" asp-action="Index">Movimentações <span aria-hidden="true">→</span></a></nav>
+        </aside>
+    </div>
+    <p class="portal-disclaimer">Área interna de comunicação e estoque. Este portal não integra folha de pagamento nem banco de horas.</p>
+</main>
