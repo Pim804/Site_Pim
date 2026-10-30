@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,7 +9,7 @@ namespace OptiStock.Web.ApiControllers;
 [ApiController]
 [Route("api/usuarios")]
 [Authorize(Roles = "Administrador")]
-public sealed class UsersController(UserManager<AppUser> users) : ControllerBase
+public sealed class UsersApiController(UserManager<AppUser> users) : ControllerBase
 {
     public sealed record CreateUserRequest(string DisplayName, string Email, string Password, string Role);
     public sealed record UpdateUserRequest(string DisplayName, string? Email, bool IsActive, string Role);
@@ -83,3 +83,4 @@ public sealed class UsersController(UserManager<AppUser> users) : ControllerBase
         _ => null
     };
 }
+

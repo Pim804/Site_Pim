@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ namespace OptiStock.Web.ApiControllers;
 [ApiController]
 [Route("api/comunicados")]
 [Authorize]
-public sealed class AnnouncementsController(OptiStockDbContext db) : ControllerBase
+public sealed class AnnouncementsApiController(OptiStockDbContext db) : ControllerBase
 {
     public sealed record AnnouncementInput(string Title, string Content, bool IsPublished);
 
@@ -77,3 +77,4 @@ public sealed class AnnouncementsController(OptiStockDbContext db) : ControllerB
         announcement.IsArchived = true; await db.SaveChangesAsync(ct); return NoContent();
     }
 }
+

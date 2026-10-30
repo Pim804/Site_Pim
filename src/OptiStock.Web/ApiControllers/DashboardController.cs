@@ -8,7 +8,7 @@ namespace OptiStock.Web.ApiControllers;
 
 [ApiController]
 [Route("api/dashboard")]
-[Authorize]
+[Authorize(Roles = "Administrador")]
 public sealed class DashboardController(OptiStockDbContext db) : ControllerBase
 {
     [HttpGet]

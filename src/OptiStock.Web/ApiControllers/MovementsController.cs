@@ -1,4 +1,4 @@
-using System.Security.Claims;
+﻿using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +11,7 @@ namespace OptiStock.Web.ApiControllers;
 [ApiController]
 [Route("api/movimentacoes")]
 [Authorize(Roles = "Administrador,Funcionário")]
-public sealed class MovementsController(IStockMovementService movements, OptiStockDbContext db) : ControllerBase
+public sealed class MovementsApiController(IStockMovementService movements, OptiStockDbContext db) : ControllerBase
 {
     [HttpPost]
     public async Task<ActionResult<MovementResult>> Create(MovementRequest request, CancellationToken cancellationToken)
@@ -47,3 +47,4 @@ public sealed class MovementsController(IStockMovementService movements, OptiSto
         return Ok(new { items, page, pageSize, total });
     }
 }
+

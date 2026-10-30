@@ -9,8 +9,8 @@ namespace OptiStock.Web.ApiControllers;
 
 [ApiController]
 [Route("api/fornecedores")]
-[Authorize]
-public sealed class SuppliersController(OptiStockDbContext db) : ControllerBase
+[Authorize(Roles = "Administrador")]
+public sealed class SuppliersApiController(OptiStockDbContext db) : ControllerBase
 {
     public sealed record SupplierInput(string Name, string? TaxId, string? Phone, string? Email, string? Address);
 
@@ -84,3 +84,4 @@ public sealed class SuppliersController(OptiStockDbContext db) : ControllerBase
 
     private static string? CleanTaxId(string? taxId) => string.IsNullOrWhiteSpace(taxId) ? null : new string(taxId.Where(char.IsDigit).ToArray());
 }
+

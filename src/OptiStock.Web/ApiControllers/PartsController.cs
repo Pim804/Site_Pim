@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OptiStock.Domain.Entities;
@@ -10,7 +10,7 @@ namespace OptiStock.Web.ApiControllers;
 [ApiController]
 [Route("api/pecas")]
 [Authorize]
-public sealed class PartsController(OptiStockDbContext db) : ControllerBase
+public sealed class PartsApiController(OptiStockDbContext db) : ControllerBase
 {
     public sealed record PartInput(string Code, string Name, string? Description, int CategoryId, int? SupplierId,
         int InitialQuantity, int MinimumStock, decimal UnitPrice, string? WarehouseLocation);
@@ -106,3 +106,4 @@ public sealed class PartsController(OptiStockDbContext db) : ControllerBase
         return NoContent();
     }
 }
+

@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OptiStock.Domain.Entities;
@@ -9,7 +9,7 @@ namespace OptiStock.Web.ApiControllers;
 [ApiController]
 [Route("api/categorias")]
 [Authorize]
-public sealed class CategoriesController(OptiStockDbContext db) : ControllerBase
+public sealed class CategoriesApiController(OptiStockDbContext db) : ControllerBase
 {
     public sealed record CategoryInput(string Name, string? Description);
 
@@ -67,3 +67,4 @@ public sealed class CategoriesController(OptiStockDbContext db) : ControllerBase
         return NoContent();
     }
 }
+

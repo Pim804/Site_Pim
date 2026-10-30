@@ -21,6 +21,7 @@ public sealed class HomeController(OptiStockApiClient api) : Controller
         return View();
     }
 
+    [Authorize(Roles = "Administrador")]
     public async Task<IActionResult> Dashboard(DateOnly? inicio, DateOnly? fim, CancellationToken ct)
     {
         try
@@ -54,3 +55,4 @@ public sealed class HomeController(OptiStockApiClient api) : Controller
     [AllowAnonymous]
     public IActionResult Error() => View(new ErrorViewModel { RequestId = HttpContext.TraceIdentifier });
 }
+
