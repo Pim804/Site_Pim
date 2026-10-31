@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("OptiStock.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+beedca14460e594a4a8a9c89f25d6ffc2579f0e4")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e43d71497e45e7e957b2dc3706920089bcf44ce9")]
 [assembly: System.Reflection.AssemblyProductAttribute("OptiStock.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("OptiStock.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

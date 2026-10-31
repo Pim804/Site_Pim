@@ -1,15 +1,16 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using OptiStock.Infrastructure.Auth;
+using OptiStock.Infrastructure.Persistence;
 
 namespace OptiStock.Web.ApiControllers;
 
 [ApiController]
 [Route("api/usuarios")]
 [Authorize(Roles = "Administrador")]
-public sealed class UsersApiController(UserManager<AppUser> users) : ControllerBase
+public sealed class UsersApiController(UserManager<AppUser> users, OptiStockDbContext db) : ControllerBase
 {
     public sealed record CreateUserRequest(string DisplayName, string Email, string Password, string Role);
     public sealed record UpdateUserRequest(string DisplayName, string? Email, bool IsActive, string Role);
@@ -76,6 +77,22 @@ public sealed class UsersApiController(UserManager<AppUser> users) : ControllerB
         return NoContent();
     }
 
+    [HttpDelete("{id:guid}")]
+    public async Task<IActionResult> Delete(Guid id, CancellationToken cancellationToken)
+    {
+        var user = await users.FindByIdAsync(id.ToString());
+        if (user is null) return NotFound();
+        if (id.ToString() == User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value)
+            return Conflict(new ProblemDetails { Status = 409, Title = "Você não pode excluir a própria conta administrativa." });
+        var hasMovements = await db.StockMovements.AnyAsync(x => x.UserId == id, cancellationToken);
+        var hasAnnouncements = await db.Announcements.AnyAsync(x => x.AuthorId == id, cancellationToken);
+        if (hasMovements || hasAnnouncements)
+            return Conflict(new ProblemDetails { Status = 409, Title = "Esta conta possui registros históricos vinculados e não pode ser excluída. Desative-a para bloquear o acesso e preservar a auditoria." });
+        var result = await users.DeleteAsync(user);
+        if (!result.Succeeded)
+            return BadRequest(new ValidationProblemDetails(result.Errors.GroupBy(e => e.Code).ToDictionary(g => g.Key, g => g.Select(e => e.Description).ToArray())));
+        return NoContent();
+    }
     private static string? NormalizeRole(string role) => role?.Trim() switch
     {
         "Administrador" => "Administrador",
