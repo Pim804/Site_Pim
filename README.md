@@ -1,4 +1,4 @@
-﻿# OptiStock — Site e API
+# OptiStock — Site e API
 
 ## 1. Identificação do projeto
 
@@ -106,3 +106,8 @@ Para disponibilizar o sistema externamente, publique a aplicação ASP.NET Core 
 ## 12. Considerações finais e limitações
 
 A aplicação depende de uma instância PostgreSQL acessível e de uma configuração válida para autenticação. O script `iniciar-local.ps1` foi preparado para desenvolvimento local em Windows. Para publicar em outro sistema operacional ou provedor, configure o banco, os segredos, o HTTPS e a inicialização das migrations conforme o ambiente escolhido.
+
+
+## Nomes f?sicos do banco em portugu?s
+
+A migration `TraduzirNomesBanco` renomeia as tabelas e colunas existentes, preservando os dados. `Persistence/NomesBancoPortugues.cs` mapeia as entidades e o Identity para os nomes f?sicos em portugu?s. Atualize o banco e o site juntos; vers?es antigas do site usam o esquema anterior. A tabela t?cnica `__EFMigrationsHistory` permanece no padr?o do EF Core.
